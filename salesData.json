@@ -1,0 +1,100 @@
+{
+  "cities": ["Mumbai", "Jaipur", "Lucknow", "Delhi", "Bangalore"],
+  "salesData": {
+    "Mumbai": {
+      "city": "Mumbai",
+      "region": "Maharashtra",
+      "currency": "INR",
+      "dailySales": [
+        { "date": "2024-01-01", "day": "Mon", "amount": 124500, "orders": 312, "category": "Electronics" },
+        { "date": "2024-01-02", "day": "Tue", "amount": 98700, "orders": 245, "category": "Clothing" },
+        { "date": "2024-01-03", "day": "Wed", "amount": 143200, "orders": 389, "category": "Electronics" },
+        { "date": "2024-01-04", "day": "Thu", "amount": 112300, "orders": 278, "category": "Food" },
+        { "date": "2024-01-05", "day": "Fri", "amount": 187600, "orders": 456, "category": "Electronics" },
+        { "date": "2024-01-06", "day": "Sat", "amount": 203400, "orders": 512, "category": "Clothing" },
+        { "date": "2024-01-07", "day": "Sun", "amount": 176800, "orders": 423, "category": "Food" }
+      ],
+      "totalRevenue": 1046500,
+      "totalOrders": 2615,
+      "avgOrderValue": 400,
+      "topCategory": "Electronics",
+      "growth": "+12.4%"
+    },
+    "Jaipur": {
+      "city": "Jaipur",
+      "region": "Rajasthan",
+      "currency": "INR",
+      "dailySales": [
+        { "date": "2024-01-01", "day": "Mon", "amount": 67800, "orders": 198, "category": "Handicrafts" },
+        { "date": "2024-01-02", "day": "Tue", "amount": 54300, "orders": 156, "category": "Clothing" },
+        { "date": "2024-01-03", "day": "Wed", "amount": 78900, "orders": 234, "category": "Handicrafts" },
+        { "date": "2024-01-04", "day": "Thu", "amount": 61200, "orders": 178, "category": "Food" },
+        { "date": "2024-01-05", "day": "Fri", "amount": 92400, "orders": 267, "category": "Clothing" },
+        { "date": "2024-01-06", "day": "Sat", "amount": 115600, "orders": 312, "category": "Handicrafts" },
+        { "date": "2024-01-07", "day": "Sun", "amount": 98700, "orders": 289, "category": "Food" }
+      ],
+      "totalRevenue": 568900,
+      "totalOrders": 1634,
+      "avgOrderValue": 348,
+      "topCategory": "Handicrafts",
+      "growth": "+8.7%"
+    },
+    "Lucknow": {
+      "city": "Lucknow",
+      "region": "Uttar Pradesh",
+      "currency": "INR",
+      "dailySales": [
+        { "date": "2024-01-01", "day": "Mon", "amount": 45600, "orders": 134, "category": "Food" },
+        { "date": "2024-01-02", "day": "Tue", "amount": 38900, "orders": 112, "category": "Clothing" },
+        { "date": "2024-01-03", "day": "Wed", "amount": 52300, "orders": 156, "category": "Food" },
+        { "date": "2024-01-04", "day": "Thu", "amount": 41700, "orders": 123, "category": "Electronics" },
+        { "date": "2024-01-05", "day": "Fri", "amount": 67800, "orders": 198, "category": "Clothing" },
+        { "date": "2024-01-06", "day": "Sat", "amount": 83400, "orders": 245, "category": "Food" },
+        { "date": "2024-01-07", "day": "Sun", "amount": 71200, "orders": 209, "category": "Electronics" }
+      ],
+      "totalRevenue": 400900,
+      "totalOrders": 1177,
+      "avgOrderValue": 340,
+      "topCategory": "Food",
+      "growth": "+5.2%"
+    },
+    "Delhi": {
+      "city": "Delhi",
+      "region": "NCT Delhi",
+      "currency": "INR",
+      "dailySales": [
+        { "date": "2024-01-01", "day": "Mon", "amount": 198400, "orders": 489, "category": "Electronics" },
+        { "date": "2024-01-02", "day": "Tue", "amount": 167300, "orders": 412, "category": "Clothing" },
+        { "date": "2024-01-03", "day": "Wed", "amount": 214500, "orders": 534, "category": "Electronics" },
+        { "date": "2024-01-04", "day": "Thu", "amount": 189600, "orders": 467, "category": "Food" },
+        { "date": "2024-01-05", "day": "Fri", "amount": 243700, "orders": 601, "category": "Electronics" },
+        { "date": "2024-01-06", "day": "Sat", "amount": 287900, "orders": 712, "category": "Clothing" },
+        { "date": "2024-01-07", "day": "Sun", "amount": 256800, "orders": 634, "category": "Food" }
+      ],
+      "totalRevenue": 1558200,
+      "totalOrders": 3849,
+      "avgOrderValue": 405,
+      "topCategory": "Electronics",
+      "growth": "+15.8%"
+    },
+    "Bangalore": {
+      "city": "Bangalore",
+      "region": "Karnataka",
+      "currency": "INR",
+      "dailySales": [
+        { "date": "2024-01-01", "day": "Mon", "amount": 156700, "orders": 378, "category": "Electronics" },
+        { "date": "2024-01-02", "day": "Tue", "amount": 134500, "orders": 312, "category": "Tech" },
+        { "date": "2024-01-03", "day": "Wed", "amount": 178900, "orders": 423, "category": "Electronics" },
+        { "date": "2024-01-04", "day": "Thu", "amount": 145300, "orders": 345, "category": "Tech" },
+        { "date": "2024-01-05", "day": "Fri", "amount": 212400, "orders": 512, "category": "Electronics" },
+        { "date": "2024-01-06", "day": "Sat", "amount": 189600, "orders": 456, "category": "Clothing" },
+        { "date": "2024-01-07", "day": "Sun", "amount": 167800, "orders": 398, "category": "Tech" }
+      ],
+      "totalRevenue": 1185200,
+      "totalOrders": 2824,
+      "avgOrderValue": 420,
+      "topCategory": "Electronics",
+      "growth": "+18.3%"
+    }
+  }
+}

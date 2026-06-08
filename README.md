@@ -82,7 +82,7 @@ src/
 
 ### Step 1 — Clone the Repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/retail-sales-dashboard.git
+git clone https://github.com/priya61590/retail-sales-dashboard.git
 cd retail-sales-dashboard
 ```
 
@@ -141,6 +141,7 @@ Then replace `src/App.jsx` with the provided `SalesDashboard.jsx` and add `sales
 
 ## 👨‍💻 Author
 
-**Priya Kumari**  
-Full Stack Developer Assignment — W1_A1  
+**Priya Kumari** 
+K.S.COLLAGE LAHERISARAI DARBHANGA 
+Full Stack Developer Assignment   
 Retail Analytics Platform

@@ -1,0 +1,139 @@
+import { useState } from "react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from "recharts";
+
+const salesData = {
+  cities: ["Mumbai", "Jaipur", "Lucknow", "Delhi", "Bangalore"],
+  salesData: {
+    Mumbai: { city:"Mumbai", region:"Maharashtra", dailySales:[{day:"Mon",amount:124500,orders:312},{day:"Tue",amount:98700,orders:245},{day:"Wed",amount:143200,orders:389},{day:"Thu",amount:112300,orders:278},{day:"Fri",amount:187600,orders:456},{day:"Sat",amount:203400,orders:512},{day:"Sun",amount:176800,orders:423}], totalRevenue:1046500, totalOrders:2615, avgOrderValue:400, topCategory:"Electronics", growth:"+12.4%" },
+    Jaipur:  { city:"Jaipur",  region:"Rajasthan",      dailySales:[{day:"Mon",amount:67800,orders:198},{day:"Tue",amount:54300,orders:156},{day:"Wed",amount:78900,orders:234},{day:"Thu",amount:61200,orders:178},{day:"Fri",amount:92400,orders:267},{day:"Sat",amount:115600,orders:312},{day:"Sun",amount:98700,orders:289}], totalRevenue:568900,  totalOrders:1634, avgOrderValue:348, topCategory:"Handicrafts", growth:"+8.7%"  },
+    Lucknow: { city:"Lucknow", region:"Uttar Pradesh",  dailySales:[{day:"Mon",amount:45600,orders:134},{day:"Tue",amount:38900,orders:112},{day:"Wed",amount:52300,orders:156},{day:"Thu",amount:41700,orders:123},{day:"Fri",amount:67800,orders:198},{day:"Sat",amount:83400,orders:245},{day:"Sun",amount:71200,orders:209}], totalRevenue:400900,  totalOrders:1177, avgOrderValue:340, topCategory:"Food",        growth:"+5.2%"  },
+    Delhi:   { city:"Delhi",   region:"NCT Delhi",      dailySales:[{day:"Mon",amount:198400,orders:489},{day:"Tue",amount:167300,orders:412},{day:"Wed",amount:214500,orders:534},{day:"Thu",amount:189600,orders:467},{day:"Fri",amount:243700,orders:601},{day:"Sat",amount:287900,orders:712},{day:"Sun",amount:256800,orders:634}], totalRevenue:1558200, totalOrders:3849, avgOrderValue:405, topCategory:"Electronics", growth:"+15.8%" },
+    Bangalore:{ city:"Bangalore",region:"Karnataka",    dailySales:[{day:"Mon",amount:156700,orders:378},{day:"Tue",amount:134500,orders:312},{day:"Wed",amount:178900,orders:423},{day:"Thu",amount:145300,orders:345},{day:"Fri",amount:212400,orders:512},{day:"Sat",amount:189600,orders:456},{day:"Sun",amount:167800,orders:398}], totalRevenue:1185200, totalOrders:2824, avgOrderValue:420, topCategory:"Electronics", growth:"+18.3%" },
+  }
+};
+
+const cityColors = { Mumbai:"#f97316", Jaipur:"#ec4899", Lucknow:"#22d3ee", Delhi:"#a78bfa", Bangalore:"#34d399" };
+const cityEmoji  = { Mumbai:"🏙️", Jaipur:"🏯", Lucknow:"🕌", Delhi:"🕍", Bangalore:"🌿" };
+
+function StatCard({ label, value, sub, accent }) {
+  return (
+    <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:14, padding:"20px 22px", flex:1, minWidth:150, position:"relative", overflow:"hidden" }}>
+      <div style={{ position:"absolute", top:0, left:0, width:"100%", height:3, background:accent }} />
+      <p style={{ color:"#777", fontSize:11, letterSpacing:1.5, textTransform:"uppercase", marginBottom:6 }}>{label}</p>
+      <p style={{ color:"#fff", fontSize:24, fontWeight:700, margin:0 }}>{value}</p>
+      {sub && <p style={{ color:accent, fontSize:12, marginTop:4 }}>{sub}</p>}
+    </div>
+  );
+}
+
+function CustomTooltip({ active, payload, label }) {
+  if (!active || !payload?.length) return null;
+  return (
+    <div style={{ background:"#1a1a2e", border:"1px solid rgba(255,255,255,0.12)", borderRadius:8, padding:"10px 14px" }}>
+      <p style={{ color:"#aaa", margin:"0 0 4px", fontSize:11 }}>{label}</p>
+      {payload.map((p,i) => (
+        <p key={i} style={{ color:p.color, margin:0, fontWeight:600, fontSize:13 }}>
+          {p.name==="amount" ? `₹${p.value.toLocaleString("en-IN")}` : `${p.value} orders`}
+        </p>
+      ))}
+    </div>
+  );
+}
+
+export default function App() {
+  const [city, setCity] = useState("Mumbai");
+  const d = salesData.salesData[city];
+  const acc = cityColors[city];
+  const fmt = n => n>=100000 ? `₹${(n/100000).toFixed(1)}L` : `₹${n.toLocaleString("en-IN")}`;
+
+  return (
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+        *{box-sizing:border-box;margin:0;padding:0;}
+        body{background:#0d0d1a;}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+        .fu{animation:fadeUp .4s ease both;}
+        select:focus{outline:none;}
+      `}</style>
+      <div style={{ minHeight:"100vh", background:"linear-gradient(135deg,#0d0d1a,#111128 60%,#0d1520)", fontFamily:"'DM Sans',sans-serif", color:"#fff", padding:"28px 20px" }}>
+        <div style={{ maxWidth:1060, margin:"0 auto" }}>
+
+          {/* Header */}
+          <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", flexWrap:"wrap", gap:16, marginBottom:28 }}>
+            <div>
+              <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:6 }}>
+                <div style={{ width:8, height:8, borderRadius:"50%", background:acc, boxShadow:`0 0 8px ${acc}`, transition:"background 0.3s" }} />
+                <span style={{ color:"#555", fontSize:11, letterSpacing:2, textTransform:"uppercase" }}>Retail Analytics Platform</span>
+              </div>
+              <h1 style={{ fontFamily:"'Syne',sans-serif", fontSize:"clamp(20px,3.5vw,30px)", fontWeight:800, color:"#fff" }}>Sales Dashboard</h1>
+              <p style={{ color:"#555", fontSize:13, marginTop:4 }}>Weekly overview — dynamically filtered by city</p>
+            </div>
+            <div style={{ display:"flex", flexDirection:"column", gap:5 }}>
+              <label style={{ color:"#555", fontSize:10, letterSpacing:1.5, textTransform:"uppercase" }}>Select City</label>
+              <select value={city} onChange={e=>setCity(e.target.value)} style={{ background:"rgba(255,255,255,0.06)", border:`1px solid ${acc}55`, borderRadius:10, color:"#fff", fontSize:14, fontWeight:600, padding:"9px 36px 9px 14px", cursor:"pointer", fontFamily:"'DM Sans',sans-serif", appearance:"none", backgroundImage:"url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%23888' d='M5 7L0 2h10z'/%3E%3C/svg%3E\")", backgroundRepeat:"no-repeat", backgroundPosition:"right 12px center", minWidth:170, transition:"border-color 0.3s" }}>
+                {salesData.cities.map(c=><option key={c} value={c} style={{background:"#1a1a2e"}}>{c}</option>)}
+              </select>
+            </div>
+          </div>
+
+          {/* City Banner */}
+          <div className="fu" key={`b${city}`} style={{ background:`linear-gradient(135deg,${acc}18,${acc}06)`, border:`1px solid ${acc}30`, borderRadius:14, padding:"14px 20px", marginBottom:22, display:"flex", alignItems:"center", gap:14, flexWrap:"wrap" }}>
+            <span style={{ fontSize:26 }}>{cityEmoji[city]}</span>
+            <div>
+              <p style={{ fontFamily:"'Syne',sans-serif", fontSize:18, fontWeight:700, color:acc }}>{d.city}</p>
+              <p style={{ color:"#666", fontSize:12 }}>{d.region} · Top: {d.topCategory} · Growth: <span style={{color:"#4ade80"}}>{d.growth}</span></p>
+            </div>
+          </div>
+
+          {/* Stat Cards */}
+          <div className="fu" key={`s${city}`} style={{ display:"flex", gap:14, flexWrap:"wrap", marginBottom:24 }}>
+            <StatCard label="Total Revenue"   value={fmt(d.totalRevenue)}           sub="Week of Jan 1"      accent={acc}      />
+            <StatCard label="Total Orders"    value={d.totalOrders.toLocaleString()} sub="This week"          accent={acc}      />
+            <StatCard label="Avg Order Value" value={`₹${d.avgOrderValue}`}          sub="Per transaction"   accent={acc}      />
+            <StatCard label="Weekly Growth"   value={d.growth}                       sub="vs last week"      accent="#4ade80"  />
+          </div>
+
+          {/* Bar Chart */}
+          <div className="fu" key={`bar${city}`} style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"24px 20px", marginBottom:20 }}>
+            <h2 style={{ fontFamily:"'Syne',sans-serif", fontSize:15, fontWeight:700, marginBottom:18, color:"#ccc" }}>Daily Revenue — {city}</h2>
+            <ResponsiveContainer width="100%" height={230}>
+              <BarChart data={d.dailySales} barSize={32}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                <XAxis dataKey="day" tick={{fill:"#666",fontSize:12}} axisLine={false} tickLine={false} />
+                <YAxis tickFormatter={v=>`₹${(v/1000).toFixed(0)}k`} tick={{fill:"#666",fontSize:11}} axisLine={false} tickLine={false} />
+                <Tooltip content={<CustomTooltip />} cursor={{fill:"rgba(255,255,255,0.03)"}} />
+                <Bar dataKey="amount" fill={acc} radius={[6,6,0,0]} name="amount" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Line Chart */}
+          <div className="fu" key={`line${city}`} style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:14, padding:"24px 20px", marginBottom:28 }}>
+            <h2 style={{ fontFamily:"'Syne',sans-serif", fontSize:15, fontWeight:700, marginBottom:18, color:"#ccc" }}>Orders Trend — {city}</h2>
+            <ResponsiveContainer width="100%" height={200}>
+              <LineChart data={d.dailySales}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                <XAxis dataKey="day" tick={{fill:"#666",fontSize:12}} axisLine={false} tickLine={false} />
+                <YAxis tick={{fill:"#666",fontSize:11}} axisLine={false} tickLine={false} />
+                <Tooltip content={<CustomTooltip />} />
+                <Line type="monotone" dataKey="orders" stroke={acc} strokeWidth={2.5} dot={{fill:acc,r:4}} activeDot={{r:7}} name="orders" />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* City Pills */}
+          <div style={{ display:"flex", gap:8, flexWrap:"wrap", justifyContent:"center", marginBottom:32 }}>
+            {salesData.cities.map(c=>(
+              <button key={c} onClick={()=>setCity(c)} style={{ background:city===c?cityColors[c]:"rgba(255,255,255,0.05)", border:`1px solid ${city===c?cityColors[c]:"rgba(255,255,255,0.1)"}`, color:city===c?"#fff":"#888", borderRadius:30, padding:"7px 18px", cursor:"pointer", fontSize:13, fontWeight:600, fontFamily:"'DM Sans',sans-serif", transition:"all 0.25s" }}>
+                {c}
+              </button>
+            ))}
+          </div>
+
+          <p style={{ textAlign:"center", color:"#2a2a3a", fontSize:11, letterSpacing:1 }}>RETAIL ANALYTICS · W1_A1 · DYNAMIC RENDERING</p>
+        </div>
+      </div>
+    </>
+  );
+}
